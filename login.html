@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            color: #4A90E2; /* Blue color for headings */
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4A90E2; /* Blue background */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #357ABD; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="return handleRequestOTP(event)">
+        <label for="emailOrMobile">Enter Email/Mobile Number:</label>
+        <input type="text" id="emailOrMobile" required>
+        
+        <button type="submit">Request OTP</button>
+    </form>
+</div>
+
+<script>
+    async function handleRequestOTP(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const emailOrMobile = document.getElementById('emailOrMobile').value;
+
+        // Send request to backend to request OTP
+        try {
+            const response = await fetch('http://localhost:5000/request-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ emailOrMobile }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message); // Notify user OTP sent successfully
+            } else {
+                alert('Error: ' + data.message); // Notify user of any error
+            }
+        } catch (error) {
+            alert('Failed to send OTP. Please try again later.');
+            console.error('Error:', error);
+        }
+    }
+</script>
+
+</body>
+</html>

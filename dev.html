@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page Clone</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Header styling */
+        .navbar {
+            background-color: #2874f0;
+            color: #fff;
+            display: flex;
+            padding: 10px 20px;
+            align-items: center;
+        }
+
+        .navbar input[type="text"] {
+            margin-left: 20px;
+            padding: 8px;
+            width: 50%;
+            border-radius: 4px;
+            border: none;
+        }
+
+        /* Product page styling */
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 20%;
+            padding: 10px;
+        }
+
+        .sidebar img {
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Product details */
+        .product-details {
+            width: 80%;
+            padding-left: 20px;
+        }
+
+        .product-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .rating {
+            color: #388e3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .price {
+            font-size: 28px;
+            color: #ff5722;
+            margin-top: 15px;
+        }
+
+        .offers {
+            margin-top: 20px;
+            background-color: #f1f8e9;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .offer-item {
+            font-size: 14px;
+            color: #388e3c;
+            margin-bottom: 5px;
+        }
+
+        /* Buttons */
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .add-to-cart {
+            background-color: #ff9800;
+        }
+
+        .buy-now {
+            background-color: #2874f0;
+        }
+
+        /* Exchange section */
+        .exchange {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .exchange h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="navbar">
+        <img src="https://img.icons8.com/ios-glyphs/30/ffffff/flipkart.png" alt="Flipkart Logo">
+        <input type="text" placeholder="Search for products, brands and more">
+    </div>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Sidebar with images -->
+        <div class="sidebar">
+            <img src="https://via.placeholder.com/150" alt="Product Thumbnail">
+            <img src="https://via.placeholder.com/150" alt="Product Thumbnail">
+            <img src="https://via.placeholder.com/150" alt="Product Thumbnail">
+        </div>
+
+        <!-- Product details -->
+        <div class="product-details">
+            <div class="product-title">Apple iPhone 15 (Blue, 128 GB)</div>
+            <div class="rating">4.6 ★ | 1,89,244 Ratings & 6,337 Reviews</div>
+
+            <div class="price">₹56,499 <span style="font-size: 18px; color: #888;">19% off</span></div>
+            <div class="offers">
+                <h3>Available offers</h3>
+                <div class="offer-item">✔️ Bank Offer: 5% Cashback on Flipkart Axis Bank Credit Card</div>
+                <div class="offer-item">✔️ Special Price: Extra ₹13401 off</div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="buttons">
+                <div class="button add-to-cart" id="add-to-cart-btn">Add to Cart</div>
+                <div class="button buy-now">Buy Now</div>
+            </div>
+
+            <!-- Exchange section -->
+            <div class="exchange">
+                <h4>Buy without Exchange</h4>
+                <p>Price: ₹56,499</p>
+                <h4>Buy with Exchange</h4>
+                <p>Up to ₹33,950 off</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart management object
+        const cart = {
+            items: [],
+            addItem(product) {
+                this.items.push(product);
+                this.updateCartUI();
+                alert(`${product.name} has been added to the cart!`);
+            },
+            updateCartUI() {
+                console.log("Current cart items:", this.items);
+                // Optionally update cart display in UI (e.g., cart icon badge)
+            }
+        };
+
+        // Product details
+        const product = {
+            name: "Apple iPhone 15 (Blue, 128 GB)",
+            price: 56499,
+            image: "https://via.placeholder.com/150" // Update with actual product image URL if needed
+        };
+
+        // JavaScript to handle "Add to Cart" button click
+        document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+            cart.addItem(product);
+        });
+    </script>
+</body>
+</html>

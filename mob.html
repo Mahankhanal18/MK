@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart Clone</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        .navbar {
+            background-color: #2874f0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .search-bar {
+            margin-left: 20px;
+            padding: 10px;
+            width: 50%;
+            border-radius: 4px;
+            border: none;
+        }
+
+        .login-btn, .seller-btn, .cart-btn {
+            margin-left: 20px;
+            color: #2874f0;
+            background-color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            margin: 20px;
+        }
+
+        /* Sidebar Filters */
+        .sidebar {
+            width: 20%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .filter-group select, .filter-group input[type="range"] {
+            width: 100%;
+            padding: 8px;
+        }
+
+        /* Product List */
+        .products {
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            width: calc(50% - 10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff5722;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .product h4 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .product p {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .discount {
+            color: red;
+        }
+
+        .buy-btn {
+            background-color: #2874f0;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">MAHAN</a>
+            <input type="text" class="search-bar" placeholder="Search for products, brands and more">
+            <button class="login-btn">Login</button>
+            <button class="seller-btn">Become a Seller</button>
+            <button class="cart-btn">Cart</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <h3>Filters</h3>
+            <div class="filter-group">
+                <label>Price</label>
+                <input type="range" min="0" max="30000" step="1000">
+            </div>
+            <div class="filter-group">
+                <label>Brand</label>
+                <select>
+                    <option>Apple</option>
+                    <option>Samsung</option>
+                    <option>Google</option>
+                    <option>Motorola</option>
+                    <option>Vivo</option>
+                    <option>Oppo</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Product List -->
+        <section class="products">
+            <!-- Product Item -->
+            <div class="product">
+                <div class="badge">Bestseller</div>
+                <img src="Desktop/MAHAN/images/apple.webp" alt="Apple iPhone 15" class="product-image">
+                <h4>Apple iPhone 15 (Blue, 128 GB)</h4>
+                <p>Price: ₹56,499 <span class="discount">(19% off)</span></p>
+                <p>128 GB ROM, 6.1-inch Display, 48MP Camera</p>
+                <a class="buy-btn" href="dev.html">Buy Now</a>
+            </div>
+            <!-- Another Product Item -->
+            <div class="product">
+                <img src="galaxy.jpg" alt="Samsung Galaxy F05" class="product-image">
+                <h4>Samsung Galaxy F05 (Twilight Blue, 64 GB)</h4>
+                <p>Price: ₹6,499 <span class="discount">(35% off)</span></p>
+                <p>64 GB ROM, 6.74-inch HD+ Display, 50MP Camera</p>
+                <button class="buy-btn" data-url="https://example.com/galaxyf05">Buy Now</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.buy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const url = button.getAttribute('data-url');
+                window.location.href = url;
+            });
+        });
+    </script>
+</body>
+</html>

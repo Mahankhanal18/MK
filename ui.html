@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="styles.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> MK </title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        /* Logo and Search Bar */
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            height: 30px;
+            margin-right: 5px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border-radius: 2px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        /* Navigation Links */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-icons a {
+            margin-left: 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Circle icons for login, cart, and become a seller */
+        .nav-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 100;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            width: 200px;
+            z-index: 1000;
+        }
+
+        /* Login/Signup Button Styling */
+        .login-container {
+            position: relative;
+        }
+
+        .login-signup-button {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #41e600;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 2px;
+            z-index: 1000;
+            white-space: nowrap;
+        }
+
+        /* Show Login/Signup Button on Hover */
+        .login-container:hover .login-signup-button {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f7f7f7;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .category-nav a {
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        .category-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Colors for each category */
+        .top-offers { background-color: #FF6347; }
+        .mobiles-tablets { background-color: #4682B4; }
+        .tvs-appliances { background-color: #32CD32; }
+        .electronics { background-color: #DA70D6; }
+        .fashion { background-color: #FFD700; }
+        .beauty-food { background-color: #FF4500; }
+        .home-kitchen { background-color: #00CED1; }
+        .furniture { background-color: #FF1493; }
+        .travel { background-color: #8A2BE2; }
+        .grocery { background-color: #FF69B4; }
+
+        .category-nav span {
+            font-weight: bold;
+        }
+
+        /* Slideshow Styles */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: none;
+            width: 100%;
+            height: auto;
+        }
+
+        .slideshow-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Navigation buttons for slideshow */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://via.placeholder.com/100x30?text=Mahan" alt="Mahan Logo">
+            <span>Explore Plus</span>
+        </div>
+        
+
+
+
+
+        <div class="search-container">
+            <input 
+                type="text" 
+                placeholder="Search for Products, Brands and More" 
+                class="search-bar" 
+                id="searchBar" 
+                onfocus="showSuggestions()" 
+                onblur="hideSuggestions()"
+            >
+            <div class="suggestions-box" id="suggestionsBox">
+                <div class="suggestion" onclick="redirectToPage('mob')">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">mobiles</span>
+                </div>
+                <div class="suggestion" onclick="redirectToPage('shoes')">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">shoes</span>
+                </div>
+                <div class="suggestion" onclick="redirectToPage('tshirts')">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">t-shirts</span>
+                </div>
+                <div class="suggestion" onclick="redirectToPage('laptops')">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">laptops</span>
+                </div>
+                <div class="suggestion" onclick="redirectToPage('watches')">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">watches</span>
+                </div>
+                <div class="suggestion" onclick="redirectToPage('tv')">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">tv</span>
+                </div>
+                <div class="suggestion" onclick="redirectToPage('sarees')">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">sarees</span>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function redirectToPage(category) {
+                // Redirects to the specified category page
+                window.location.href = `/${category}.html`;
+            }
+        
+            function showSuggestions() {
+                document.getElementById('suggestionsBox').style.display = 'block';
+            }
+        
+            function hideSuggestions() {
+                document.getElementById('suggestionsBox').style.display = 'none';
+            }
+        </script>
+        
+        <!-- HTML for Suggestions -->
+       <!--- <div class="search-container">
+            <input type="text" placeholder="Search for Products, Brands and More" class="search-bar" id="searchBar" onfocus="showSuggestions()" onblur="hideSuggestions()">
+            <div class="suggestions-box" id="suggestionsBox">
+                <div class="suggestion">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">mobiles</span>
+                </div>
+                
+                <script>
+                    function displayMobilesPage() {
+                        // Redirect to a mobiles page
+                        window.location.href = '/mob.html'; 
+                        // Alternatively, dynamically load content
+                        // loadMobilesContent();
+                    }
+                
+                    function showSuggestions() {
+                        document.getElementById('suggestionsBox').style.display = 'block';
+                    }
+                
+                    function hideSuggestions() {
+                        document.getElementById('suggestionsBox').style.display = 'none';
+                    }
+                
+                    // Optionally, create a function to load content dynamically
+                    // function loadMobilesContent() {
+                    //    document.getElementById('content').innerHTML = '<h2>List of Mobiles</h2><ul><li>Mobile 1</li><li>Mobile 2</li>...</ul>';
+                    // }
+                </script>
+                
+                
+                <div class="suggestion">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">shoes</span>
+                </div>
+                <div class="suggestion">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">t shirts</span>
+                </div>
+                <div class="suggestion">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">laptops</span>
+                </div>
+                <div class="suggestion">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">watches</span>
+                </div>
+                <div class="suggestion">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">tv</span>
+                </div>
+                <div class="suggestion">
+                    <span class="suggestion-icon">🔍</span>
+                    <span class="suggestion-text">sarees</span>
+                </div>
+            </div>
+        </div>
+
+        <!- CSS for Suggestions -->
+        <style>
+            .search-container {
+                position: relative;
+                flex-grow: 1;
+            }
+
+            .search-bar {
+                width: 100%;
+                padding: 8px 12px;
+                border-radius: 2px;
+                border: 1px solid #ddd;
+                font-size: 14px;
+            }
+
+            .suggestions-box {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-top: none;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 10;
+            }
+
+            .suggestion {
+                padding: 10px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+            }
+
+            .suggestion:hover {
+                background-color: #f0f0f0;
+            }
+
+            .suggestion-icon {
+                margin-right: 10px;
+                font-size: 16px;
+            }
+
+            .suggestion-text {
+                font-size: 14px;
+                color: #333;
+            }
+        </style>
+
+        <!-- JavaScript for Suggestions -->
+        <script>
+            const searchBar = document.getElementById('searchBar');
+            const suggestionsBox = document.getElementById('suggestionsBox');
+
+            // Show suggestions on focus
+            function showSuggestions() {
+                suggestionsBox.style.display = 'block';
+            }
+
+            // Hide suggestions on blur
+            function hideSuggestions() {
+                setTimeout(() => {
+                    suggestionsBox.style.display = 'none';
+                }, 200);
+            }
+        </script>
+
+        <div class="nav-icons">
+            <!-- Login Button with Dropdown -->
+            <div class="login-container">
+                <a id="loginButton">
+                    <div class="nav-circle">👤</div>
+                    Login
+                    <div class="dropdown-menu" id="loginDropdown">
+                        <a href="#">My Profile</a>
+                        <a href="#">Mahan Plus Zone</a>
+                        <a href="#">Orders</a>
+                        <a href="#">Wishlist</a>
+                        <a href="#">Rewards</a>
+                    </div>
+                </a>
+                <button class="login-signup-button" onclick="handleClick()">Login/Signup</button>
+
+                <script>
+                    function handleClick() {
+                        const action = prompt("Do you want to Login or Signup? (Enter 'login' or 'signup')").toLowerCase();
+
+                        // Redirect based on user input
+                        if (action === 'login') {
+                            alert("Redirecting to Login Page...");
+                            // Replace with your actual login page URL
+                            window.location.href = "login.html"; 
+                        } else if (action === 'signup') {
+                            alert("Redirecting to Signup Page...");
+                            // Replace with your actual signup page URL
+                            window.location.href = "signup.html"; 
+                        } else {
+                            alert("Invalid option. Please enter 'login' or 'signup'.");
+                        }
+                    }
+                </script>
+            </div>
+            
+            <a href="cart.html">
+                <div class="nav-circle">🛒</div>
+                Cart
+            </a>
+            <a href="become-seller.html">
+                <div class="nav-circle">💼</div>
+                Become a Seller
+            </a>
+        </div>
+    </header>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+        <a href="Topoffers.html">
+            <div class="category-circle top-offers">🔥</div>
+            <span>Top Offers</span>
+        </a>
+        <a href="mobiles.html">
+            <div class="category-circle mobiles-tablets">📱</div>
+            <span>Mobiles & Tablets</span>
+        </a>
+        <a href="tvs-appliances.html">
+            <div class="category-circle tvs-appliances">📺</div>
+            <span>TVs & Appliances</span>
+        </a>
+        <a href="electronics.html">
+            <div class="category-circle electronics">🗄️</div>
+            <span>Electronics</span>
+        </a>
+        <a href="fashion.html">
+            <div class="category-circle fashion">👗</div>
+            <span>Fashion</span>
+        </a>
+        <a href="beauty-food.html">
+            <div class="category-circle beauty-food">🍲</div>
+            <span>Beauty, Food</span>
+        </a>
+        <a href="home-kitchen.html">
+            <div class="category-circle home-kitchen">🏠</div>
+            <span>Home & Kitchen</span>
+        </a>
+        <a href="furniture.html">
+            <div class="category-circle furniture">🛋️</div>
+            <span>Furniture</span>
+        </a>
+        <a href="travel.html">
+            <div class="category-circle travel">🧳</div>
+            <span>Travel</span>
+        </a>
+        <a href="grocery.html">
+            <div class="category-circle grocery">🛒</div>
+            <span>Grocery</span>
+        </a>
+    </nav>
+
+    <div class="line"></div>
+
+  <!-------------- MAIN IMG -------------->
+  <div class="heroSection">
+
+  </div>
+
+  <div class="line"></div>
+
+  <!-------------- ITEM SECTION -------------->
+  <div class="itemSection">
+
+    <div class="item">
+      <div class="itemHeadName">
+        <p>Get Set for Sports</p>
+      </div>
+
+      <div class="viewAllSection">
+        <div class="viewAllButton">
+          <p class="viewAllText">VIEW ALL</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="images/cloth1.webp" alt="cloth1" class="itemImg">
+      <p class="itemDescription">Men's T-shirt</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/cloth2.webp" alt="cloth2" class="itemImg">
+      <p class="itemDescription">Jackets</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/cloth3.webp" alt="cloth3" class="itemImg">
+      <p class="itemDescription">Men's Trackshut</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/cloth4.webp" alt="cloth4" class="itemImg">
+      <p class="itemDescription">Jackets</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+  </div>
+
+  <div class="line"></div>
+
+
+  <div class="itemSection">
+
+    <div class="item">
+      <div class="itemHeadName">
+        <p>Best of Electronics</p>
+      </div>
+
+      <div class="viewAllSection">
+        <div class="viewAllButton">
+          <p class="viewAllText">VIEW ALL</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="images/electronic1.webp" alt="electronic img" class="itemImg">
+      <p class="itemDescription">Men's T-shirt</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/electronic2.webp" alt="electronic img" class="itemImg">
+      <p class="itemDescription">Jackets</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/electronic3.webp" alt="electronic img" class="itemImg">
+      <p class="itemDescription">Men's Trackshut</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/electronic4.webp" alt="electronic img" class="itemImg">
+      <p class="itemDescription">Jackets</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+  </div>
+
+  <div class="line"></div>
+
+  <div class="itemSection">
+
+    <div class="item">
+      <div class="itemHeadName">
+        <p>Fashion Top Deals</p>
+      </div>
+
+      <div class="viewAllSection">
+        <div class="viewAllButton">
+          <p class="viewAllText">VIEW ALL</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="images/fashion1.webp" alt="cloth1" class="itemImg">
+      <p class="itemDescription">Lahenga Choli & Gown</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/fashion2.webp" alt="cloth2" class="itemImg">
+      <p class="itemDescription">Kurtas</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/fashion3.webp" alt="cloth3" class="itemImg">
+      <p class="itemDescription">Liwas</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/fashion4.webp" alt="cloth4" class="itemImg">
+      <p class="itemDescription">Kurta Set</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+  </div>
+
+  <div class="line"></div>
+
+  <div class="itemSection">
+
+    <div class="item">
+      <div class="itemHeadName">
+        <p>Top Deals for Today</p>
+      </div>
+
+      <div class="viewAllSection">
+        <div class="viewAllButton">
+          <p class="viewAllText">VIEW ALL</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="images/topDeal1.webp" alt="topDeal" class="itemImg">
+      <p class="itemDescription">Musical Instrument</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/topDeal2.webp" alt="topDeal" class="itemImg">
+      <p class="itemDescription">Smart Watches</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/topDeal3.webp" alt="topDeal" class="itemImg">
+      <p class="itemDescription">Umbrella</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+
+    <div class="item">
+      <img src="images/topDeal4.webp" alt="topDeal" class="itemImg">
+      <p class="itemDescription">Soft Toys</p>
+      <p class="buyNowText">Buy Now</p>
+    </div>
+  </div>
+
+
+  <footer>
+
+    <div class="footerSection">
+
+      <div class="footerLeft">
+
+        <div class="footerInfo">
+          <p class="footerInfoHeading">ABOUT</p>
+          <div class="footerContent">
+            <p>Contact Us</p>
+            <p>About Us</p>
+            <p>Careers</p>
+            <p>Flipkart Stories</p>
+            <p>Press</p>
+            <p>Flipkart Wholesale</p>
+            <p>Corporate Information</p>
+          </div>
+        </div>
+
+        <div class="footerInfo">
+          <p class="footerInfoHeading">HELP</p>
+          <div class="footerContent">
+            <p>Payments</p>
+            <p>Shipping</p>
+            <p>Cancellation & Returns</p>
+            <p>FAQ</p>
+            <p>Report Infringement</p>
+          </div>
+        </div>
+
+        <div class="footerInfo">
+          <p class="footerInfoHeading">CONSUMER POLICY</p>
+          <div class="footerContent">
+            <p>Cancellation & Returns</p>
+            <p>Terms Of Use</p>
+            <p>Security</p>
+            <p>Privacy</p>
+            <p>Sitemap</p>
+            <p>Grievance Redressal</p>
+            <p>EPR Compliance</p>
+          </div>
+        </div>
+
+
+        <div class="footerInfo">
+          <p class="footerInfoHeading">SOCIAL</p>
+          <div class="footerContent">
+            <p>Facebook</p>
+            <p>Twitter</p>
+            <p>YouTube</p>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="footerRight">
+
+        <div class="footerInfo">
+
+          <p class="footerInfoHeading">Mail Us:</p>
+          <div class="footerContent">
+            <p>Flipkart Internet Private Limited,</p>
+            <p>Buildings Alyssa, Begonia &</p>
+            <p>Clove Embassy Tech Village,</p>
+            <p>Outer Ring Road, Devarabeesanahalli Village,</p>
+            <p>Bengaluru, 560103,</p>
+            <p>Karnataka, India</p>
+          </div>
+        </div>
+
+        <div class="footerInfo">
+          <p class="footerInfoHeading">Registered Office Address:</p>
+          <div class="footerContent">
+            <p>Flipkart Internet Private Limited,</p>
+            <p>Buildings Alyssa, Begonia &</p>
+            <p>Clove Embassy Tech Village,</p>
+            <p>Outer Ring Road, Devarabeesanahalli Village,</p>
+            <p>Bengaluru, 560103,</p>
+            <p>Karnataka, India</p>
+            <p>CIN : U51109KA2012PTC066107</p>
+            <p>Telephone: 044-45614700</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="footerExtras">
+      <span><i class="fa-solid fa-suitcase" style="color: #ffe500;"></i> Become a Seller</span>
+      <span><i class="fa-solid fa-star" style="color: #ffe500;"></i> Advertise</span>
+      <span><i class="fa-solid fa-gift" style="color: #ffe500;"></i> Gift Cards</span>
+      <span><i class="fa-solid fa-circle-question" style="color: #ffe500;"></i> Help Center</span>
+      <span>© 2007-2024 Mahan18.com</span>
+      <span><img src="images/payment-method.svg" alt="payment-method"></span>
+
+    </div>
+
+  </footer>
+
+
+    <!-- Slideshow Section 
+    <div class="slideshow-container">
+        <img class="slides" src="https://images.unsplash.com/photo-1597664607810-e59e0318e775?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="iPhone Image 1">
+        <img class="slides" src="https://images.unsplash.com/photo-1711967299865-c88350fddb70?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="iPhone Image 2">
+        <img class="slides" src="https://images.unsplash.com/photo-1628489479633-fefb4059474f?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="iPhone Image 3">
+    </div>
+    
+-->
+        <!-- Navigation buttons -->
+        <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+        <a class="next" onclick="changeSlide(1)">&#10095;</a>
+    </div>
+
+    <script>
+        // Toggle Dropdown
+        document.getElementById("loginButton").addEventListener("click", function(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById("loginDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function(event) {
+            const dropdown = document.getElementById("loginDropdown");
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            }
+        });
+
+        // Slideshow functionality
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            const slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+
+        function changeSlide(n) {
+            slideIndex += n;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            if (slideIndex < 1) { slideIndex = slides.length; }
+            const slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+    </script>
+
+</body>
+</html>

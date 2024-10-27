@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Search Results Container */
+        .search-results {
+            display: none;
+            margin: 20px;
+        }
+
+        .search-result-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-result-info {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+
+        .search-result-info h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .price {
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .img-thumbnail {
+            width: 80px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Search Bar -->
+    <input type="text" placeholder="Search for Products, Brands and More" class="search-bar" id="searchBar">
+    
+    <!-- Search Results Section -->
+    <div class="search-results" id="searchResults">
+        <div class="search-result-item">
+            <img src="https://via.placeholder.com/80" alt="iPhone 16 Teal" class="img-thumbnail">
+            <div class="search-result-info">
+                <h3>Apple iPhone 16 (Teal, 128 GB)</h3>
+                <p>128 GB ROM | 15.49 cm (6.1 inch) Super Retina XDR Display</p>
+                <p>48MP + 12MP | 12MP Front Camera</p>
+                <p>A18 Chip, 6 Core Processor</p>
+                <p class="price">₹79,900</p>
+            </div>
+        </div>
+        
+        <div class="search-result-item">
+            <img src="https://via.placeholder.com/80" alt="iPhone 16 Ultramarine" class="img-thumbnail">
+            <div class="search-result-info">
+                <h3>Apple iPhone 16 (Ultramarine, 128 GB)</h3>
+                <p>128 GB ROM | 15.49 cm (6.1 inch) Super Retina XDR Display</p>
+                <p>48MP + 12MP | 12MP Front Camera</p>
+                <p>A18 Chip, 6 Core Processor</p>
+                <p class="price">₹79,900</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const searchBar = document.getElementById('searchBar');
+        const searchResults = document.getElementById('searchResults');
+
+        searchBar.addEventListener('keyup', function(event) {
+            if (event.target.value.toLowerCase() === 'iphone 16') {
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
